@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<title>Weight Tracker App</title>
+	<head>
+		<link href="../static/main.css" rel="stylesheet">
+	</head>
+		<body>
+			<div class="container">
+				<h1>Weight Tracker Web App</h1>
+				<h3>Add entries to track your weight</h3>
+				<div class="message">
+					{{text | safe}}
+				</div>
+				<form action="{{url_for('success')}}" method="POST">
+					<input id="longer" placeholder="Enter date" type="date" name="date_entry" required>
+					<br>
+					<input placeholder="St" type="number" min="0" max="20" name="st_entry" required>
+					<input placeholder="Lb" type="number" min="0" max="13.9" name="lb_entry" required>
+					<br>
+					<button type="submit"> Submit </button>
+				</form>
+				<a href="{{url_for('results')}}" class="button">Results</a>
+			</div>
+		</body>
+</html>
