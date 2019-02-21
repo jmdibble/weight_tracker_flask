@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from tables import Results
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -24,7 +23,6 @@ def index():
     return render_template("index.html")
 
 @app.route("/results")
-## this part is broken and I can't find a solution.
 def results():
     rows=[]
     dates = db.session.query(Data).all()
