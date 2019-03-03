@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-	<title>Weight Tracker App</title>
-	<head>
-		<link href="../static/main.css" rel="stylesheet"> 
-	</head>
-		<body>
-			<div class="container">
-				<h1>Your Results</h1>
-				<p>Need results to show here...</p>
-				<a href="{{url_for('index')}}" class="button">Home</a>
-			</div>
-		</body>
+<title>Weight Tracker App</title>
 
+<head>
+	<link href="../static/main.css" rel="stylesheet">
+</head>
 
+<body>
+	<div class="container">
+		<h1>Your Results</h1>
+		{% for i in ls %}
+			<p>{{dates}}</p>
+		<a href="{{url_for('index')}}" class="button">Home</a>
+	</div>
+</body>
 
 
 </html>
