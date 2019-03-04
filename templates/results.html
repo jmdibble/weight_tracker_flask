@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<h1>Your Results</h1>
-		<p>{{dates}}</p>
+		<div class="table">{{table | safe}}</div>
 		<a href="{{url_for('index')}}" class="button">Home</a>
 	</div>
 </body>

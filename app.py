@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 import datetime
 import datefinder
+from tabulate import tabulate
+from itertools import groupby
+from operator import itemgetter
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -30,18 +33,49 @@ def index():
 
 @app.route("/results")
 def results():
-    ##
+    # Dates query
     dates = db.session.query(Data.date_).all()
     result = [str(i) for i in dates]
-    ls = []
+    dateList = []
     for i in result:
         matches = datefinder.find_dates(i)
         for match in matches:
             match = match.date()
             match = match.strftime("%d/%m/%Y")
-            ls.append(match)
-    print(ls)
-    return render_template("results.html", dates=ls)
+            dateList.append(match)
+    print(dateList)
+
+    # Stone query
+    stone = db.session.query(Data.stone_).all()
+    stoneList = []
+    for i in stone:
+        stoneList.append(i)
+    print(stoneList)
+
+    # Pound query
+    pounds = db.session.query(Data.pounds_).all()
+    poundList = []
+    for i in pounds:
+        poundList.append(i)
+    print(poundList)
+
+    result = zip(dateList, stoneList, poundList)
+    resultsList = list(result)
+    print(resultsList)
+
+    # table = [result]
+    # table1 = (tabulate(table, tablefmt='html'))
+
+    FULL_HTML = []
+    for date, rows in groupby(resultsList, itemgetter(0)):
+        table = []
+        for date, value1, value2 in rows:
+            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td></tr>".format(date, value1, value2))
+        table = "<table>\n{}\n</table>".format('\n'.join(table))
+        FULL_HTML.append(table)
+    FULL_HTML = "<html>\n{}\n</html>".format('\n'.join(FULL_HTML))
+
+    return render_template("results.html", dates=dateList, table=FULL_HTML)
 
 
 @app.route("/success", methods=["POST"])
