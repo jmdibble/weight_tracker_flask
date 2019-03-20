@@ -33,6 +33,7 @@ def index():
 
 @app.route("/results")
 def results():
+    
     # Dates query
     dates = db.session.query(Data.date_).all()
     result = [str(i) for i in dates]
@@ -43,34 +44,45 @@ def results():
             match = match.date()
             match = match.strftime("%d/%m/%Y")
             dateList.append(match)
-    print(dateList)
+    # print(dateList)
 
     # Stone query
     stone = db.session.query(Data.stone_).all()
     stoneList = []
     for i in stone:
         stoneList.append(i)
-    print(stoneList)
+    # print(stoneList)
 
     # Pound query
     pounds = db.session.query(Data.pounds_).all()
     poundList = []
     for i in pounds:
         poundList.append(i)
-    print(poundList)
+    # print(poundList)
 
-    result = zip(dateList, stoneList, poundList)
+    # All query
+    allRows = (db.session.query(Data).order_by(Data.date_).all())
+    datesList = []
+    stonesList = []
+    poundsList = []
+    for i in allRows:
+        datesList.append(i.date_)
+        stonesList.append(i.stone_)
+        poundsList.append(i.pounds_)
+    print(datesList)
+    print(stonesList)
+    print(poundsList)
+
+    result = zip(datesList, stonesList, poundsList)
     resultsList = list(result)
-    print(resultsList)
-
-    # table = [result]
-    # table1 = (tabulate(table, tablefmt='html'))
+    # print(resultsList)
 
     FULL_HTML = []
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
         for date, value1, value2 in rows:
-            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td></tr>".format(date, value1, value2))
+            table.append(
+                "<tr><td>{}</td><td>{}</td><td>{}</td><td></tr>".format(date, value1, value2))
         table = "<table>\n{}\n</table>".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<html>\n{}\n</html>".format('\n'.join(FULL_HTML))

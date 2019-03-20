@@ -2,13 +2,12 @@ html, body {
 	height: 100%;
 	margin: 0;
 	font: Arial, sans-serif;
-}
+	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #929ae7, #889aed, #7c9af3, #7d8ef9, #857ffc, #936efc, #a458f8);}
 
 .container {
 	margin: 0 auto;
 	width: 100%;
 	height: 100%;
-	background-color: #74168a;
 	color: #cee0dc;
 	overflow: hidden;
 	text-align: center;
@@ -17,14 +16,14 @@ html, body {
 .container h1 {
 	font-family: Arial, sans-serif;
 	font-size: 30px;
-	color: #cee0dc;
+	color: #ffffff;
 	margin-top: 80px;
 }
 
 .container h3 {
 	font-family: Arial, sans-serif;
 	font-size: 20px;
-	color: #8d8e8e;
+	color: #cee0dc;
 }
 
 .container form {
@@ -57,14 +56,14 @@ html, body {
 }
 
 a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
+	-webkit-appearance: button;
+	-moz-appearance: button;
+	appearance: button;
 
-    text-decoration: none;
-    color: initial;
+	text-decoration: none;
+	color: initial;
 
-    width: 100px;
+	width: 100px;
 	height: 40px;
 	font-size: 15px;
 	margin: 50px;
@@ -82,7 +81,18 @@ a.button {
 }
 
 .table {
-	margin: auto;
-}
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+.td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }
+  
+.tr:nth-child(even) {
+	background-color: #dddddd;
+  }
 
 
