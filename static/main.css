@@ -67,7 +67,7 @@ input::placeholder {
 	border: 0px;
 	width: 100px;
 	height: 45px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #262626;
 	font-family: 'Raleway', sans-serif;
 }
@@ -78,29 +78,9 @@ input::placeholder {
 	border: 0px;
 	width: 100px;
 	height: 45px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #262626;
 	font-family: 'Raleway', sans-serif;
-}
-
-a.button {
-	-webkit-appearance: button;
-	-moz-appearance: button;
-	appearance: button;
-
-	text-decoration: none;
-	color: initial;
-
-	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	font-family: 'Raleway', sans-serif;
-	margin: 50px;
-	background-color: #ACBDBA;
-}
-
-.container p {
-	margin: 100px;
 }
 
 .message {
@@ -130,7 +110,7 @@ a.button {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: rgb(115, 53, 187);
+	background-color: rgb(115, 53, 187, 0.3);
 	color: #fff;
   }
 
