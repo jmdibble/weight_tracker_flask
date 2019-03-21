@@ -34,39 +34,13 @@ def index():
 @app.route("/results")
 def results():
     
-    # Dates query
-    dates = db.session.query(Data.date_).all()
-    result = [str(i) for i in dates]
-    dateList = []
-    for i in result:
-        matches = datefinder.find_dates(i)
-        for match in matches:
-            match = match.date()
-            match = match.strftime("%d/%m/%Y")
-            dateList.append(match)
-    # print(dateList)
-
-    # Stone query
-    stone = db.session.query(Data.stone_).all()
-    stoneList = []
-    for i in stone:
-        stoneList.append(i)
-    # print(stoneList)
-
-    # Pound query
-    pounds = db.session.query(Data.pounds_).all()
-    poundList = []
-    for i in pounds:
-        poundList.append(i)
-    # print(poundList)
-
     # All query
-    allRows = (db.session.query(Data).order_by(Data.date_).all())
+    allRows = (db.session.query(Data).order_by(Data.date_.desc()).all())
     datesList = []
     stonesList = []
     poundsList = []
     for i in allRows:
-        datesList.append(i.date_)
+        datesList.append(i.date_.strftime("%d/%m/%Y"))
         stonesList.append(i.stone_)
         poundsList.append(i.pounds_)
     print(datesList)
@@ -77,17 +51,17 @@ def results():
     resultsList = list(result)
     # print(resultsList)
 
-    FULL_HTML = []
+    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
         for date, value1, value2 in rows:
-            table.append(
-                "<tr><td>{}</td><td>{}</td><td>{}</td><td></tr>".format(date, value1, value2))
-        table = "<table>\n{}\n</table>".format('\n'.join(table))
+            table.append("<tr><td>{}</td><td>{}</td><td>{}</td></tr>".format(date, value1, value2))
+            print(table)
+        table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
-    FULL_HTML = "<html>\n{}\n</html>".format('\n'.join(FULL_HTML))
+    FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
 
-    return render_template("results.html", dates=dateList, table=FULL_HTML)
+    return render_template("results.html", table=FULL_HTML)
 
 
 @app.route("/success", methods=["POST"])

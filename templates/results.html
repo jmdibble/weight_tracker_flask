@@ -4,14 +4,22 @@
 
 <head>
 	<link href="../static/main.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 
 <body>
-	<div class="container">
-		<h1>Your Results</h1>
-		<div class="table">{{table | safe}}</div>
-		<a href="{{url_for('index')}}" class="button">Home</a>
-	</div>
+	<h1>Your Results</h1>
+
+	<div class="table" id="table">{{table | safe}}</div>
+
+	<input type="button" class="button" value="Home" onclick="window.location.href='{{url_for('index')}}'" />
+
+	<footer class="footer">
+		<p id="footer-text">&copy; 2019 Josh Dibble</p>
+	</footer>
+
 </body>
 
 

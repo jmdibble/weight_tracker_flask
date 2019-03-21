@@ -1,41 +1,52 @@
 html, body {
 	height: 100%;
-	margin: 0;
-	font: Arial, sans-serif;
-	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #929ae7, #889aed, #7c9af3, #7d8ef9, #857ffc, #936efc, #a458f8);}
-
-.container {
-	margin: 0 auto;
-	width: 100%;
-	height: 100%;
-	color: #cee0dc;
-	overflow: hidden;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #929ae7, #889aed, #7c9af3, #7d8ef9, #857ffc, #936efc, #a458f8);
+	font-family: 'Raleway', sans-serif;
+	margin: auto;
 	text-align: center;
+	overflow: scroll;
+	color: #fff;
 }
 
-.container h1 {
-	font-family: Arial, sans-serif;
+
+h1 {
 	font-size: 30px;
 	color: #ffffff;
 	margin-top: 80px;
 }
 
-.container h3 {
-	font-family: Arial, sans-serif;
+h3 {
 	font-size: 20px;
 	color: #cee0dc;
 }
 
-.container form {
+.form {
 	margin: 30px;
 }
 
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
 .container input, #longer {
-	width: 224px;
+	font-family: 'Raleway', sans-serif;
+	color: #fff;
+	background-color: transparent;
+	width: 226px;
 	height: 40px;
 	font-size: 15px;
 	margin: 10px;
 	transition: all 0.2s ease-in-out;
+	border: 0px;
+	border-bottom: 2px solid #ffffff;
 }
 
 .container input {
@@ -46,13 +57,30 @@ html, body {
 	transition: all 0.2s ease-in-out;
 }
 
+input::placeholder {
+	color: #fff;
+  }
+
 .container button {
+	margin: 20px 5px 0px 5px;
+	border-radius: 100px;
+	border: 0px;
 	width: 100px;
-	height: 40px;
-	font-size: 15px;
-	margin: 50px;
-	background-color: #ACBDBA;
-	/*border-radius: 50px;*/
+	height: 45px;
+	font-size: 18px;
+	color: #262626;
+	font-family: 'Raleway', sans-serif;
+}
+
+.button {
+	margin: 20px 5px 0px 5px;
+	border-radius: 100px;
+	border: 0px;
+	width: 100px;
+	height: 45px;
+	font-size: 18px;
+	color: #262626;
+	font-family: 'Raleway', sans-serif;
 }
 
 a.button {
@@ -66,6 +94,7 @@ a.button {
 	width: 100px;
 	height: 40px;
 	font-size: 15px;
+	font-family: 'Raleway', sans-serif;
 	margin: 50px;
 	background-color: #ACBDBA;
 }
@@ -75,24 +104,40 @@ a.button {
 }
 
 .message {
-	font-family: Arial, sans-serif;
 	font-size: 16px;
 	padding-top: 20px;
 }
 
 .table {
-	border-collapse: collapse;
-	width: 100%;
+	margin: auto;
+	display: table;
   }
   
 .td, th {
-	border: 1px solid #dddddd;
+	border: 1px solid #fff;
 	text-align: left;
 	padding: 8px;
   }
   
-.tr:nth-child(even) {
-	background-color: #dddddd;
+  #table td, #table th {
+	border: 1px solid #fff;
+	padding: 8px;
+  }
+  
+  #table tr:hover {background-color: #fff;}
+  
+  #table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: rgb(115, 53, 187);
+	color: #fff;
+  }
+
+
+  .footer {
+	color: #ffffff !important;
+	position: absolute; left: 0; right: 0; top: 800px; bottom:0;
   }
 
 
