@@ -61,7 +61,7 @@ def results():
     resultsList = list(result)
     # print(resultsList)
 
-    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Change</th></tr>"]
+    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Lb Change</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
         for date, value1, value2, value3 in rows:
@@ -91,3 +91,4 @@ def success():
 if __name__ == "__main__":
     app.debug = True
     app.run()
+

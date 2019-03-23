@@ -91,6 +91,7 @@ input::placeholder {
 .table {
 	margin: auto;
 	display: table;
+	font-size: 14px;
   }
   
 .td, th {
