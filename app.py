@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 import datetime
 import datefinder
-from tabulate import tabulate
 from itertools import groupby
 from operator import itemgetter
 
@@ -30,7 +29,6 @@ class Data(db.Model):
 def index():
     return render_template("index.html")
 
-
 @app.route("/results")
 def results():
     
@@ -43,20 +41,31 @@ def results():
         datesList.append(i.date_.strftime("%d/%m/%Y"))
         stonesList.append(i.stone_)
         poundsList.append(i.pounds_)
-    print(datesList)
-    print(stonesList)
-    print(poundsList)
+    # print(datesList)
+    # print(stonesList)
+    # print(poundsList)
 
-    result = zip(datesList, stonesList, poundsList)
+    difList = []
+    for i, j in zip(stonesList, poundsList):
+        stonePounds = i*14
+        poundPounds = j
+        totalPounds = stonePounds + poundPounds
+        initialStones = ((stonesList[0]) * 14)
+        initialPounds = (poundsList[0])
+        totalInitial = initialStones + initialPounds
+        difference = totalInitial - totalPounds
+        difList.append(difference)
+    print(difList)
+
+    result = zip(datesList, stonesList, poundsList, difList)
     resultsList = list(result)
     # print(resultsList)
 
-    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th></tr>"]
+    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Change</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
-        for date, value1, value2 in rows:
-            table.append("<tr><td>{}</td><td>{}</td><td>{}</td></tr>".format(date, value1, value2))
-            print(table)
+        for date, value1, value2, value3 in rows:
+            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(date, value1, value2, value3))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
