@@ -5,10 +5,14 @@ import datetime
 import datefinder
 from itertools import groupby
 from operator import itemgetter
+from decimal import Decimal
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+## Testing DB
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
+## Prod DB
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
 db = SQLAlchemy(app)
 
 
@@ -36,11 +40,18 @@ def results():
     allRows = (db.session.query(Data).order_by(Data.date_.desc()).all())
     datesList = []
     stonesList = []
-    poundsList = []
+    poundsListTen = []
+
     for i in allRows:
         datesList.append(i.date_.strftime("%d/%m/%Y"))
         stonesList.append(i.stone_)
-        poundsList.append(i.pounds_)
+        poundsListTen.append(i.pounds_)
+    
+    poundsList = []
+    for i in poundsListTen:
+        pounds = i/10
+        poundsList.append(pounds)
+
     # print(datesList)
     # print(stonesList)
     # print(poundsList)
@@ -50,11 +61,11 @@ def results():
         stonePounds = i*14
         poundPounds = j
         totalPounds = stonePounds + poundPounds
-        initialStones = ((stonesList[0]) * 14)
-        initialPounds = (poundsList[0])
+        initialStones = (stonesList[0]) * 14
+        initialPounds = poundsList[0]
         totalInitial = initialStones + initialPounds
-        difference = totalInitial - totalPounds
-        difList.append(difference)
+        difference = round((totalInitial - totalPounds), 1)
+        difList.insert(0, difference)
     print(difList)
 
     result = zip(datesList, stonesList, poundsList, difList)
@@ -65,7 +76,7 @@ def results():
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
         for date, value1, value2, value3 in rows:
-            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(date, value1, value2, value3))
+            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td><i class='fas fa-times'></i></td></tr>".format(date, value1, value2, value3))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
@@ -79,6 +90,7 @@ def success():
         date = request.form["date_entry"]
         stone = request.form["st_entry"]
         pounds = request.form["lb_entry"]
+        pounds = ((float(pounds))*10)
         # print(date)
         if db.session.query(Data).filter(Data.date_ == date).count() == 0:
             data = Data(date, stone, pounds)

@@ -14,7 +14,7 @@ html, body {
 h1 {
 	font-size: 30px;
 	color: #ffffff;
-	margin-top: 80px;
+	margin-top: 50px;
 }
 
 h3 {
@@ -111,7 +111,7 @@ input::placeholder {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: rgb(115, 53, 187, 0.3);
+	background-color: rgba(148, 98, 206, 0.3);
 	color: #fff;
   }
 
