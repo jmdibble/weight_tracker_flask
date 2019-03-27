@@ -10,9 +10,9 @@ from decimal import Decimal
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ## Testing DB
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
 ## Prod DB
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
 db = SQLAlchemy(app)
 
 
@@ -49,7 +49,7 @@ def results():
     
     poundsList = []
     for i in poundsListTen:
-        pounds = i/10
+        pounds = i/100
         poundsList.append(pounds)
 
     # print(datesList)
@@ -57,15 +57,18 @@ def results():
     # print(poundsList)
 
     difList = []
+    stoneOne = []
+    poundOne = []
     for i, j in zip(stonesList, poundsList):
         stonePounds = i*14
         poundPounds = j
         totalPounds = stonePounds + poundPounds
-        initialStones = (stonesList[0]) * 14
-        initialPounds = poundsList[0]
+        initialStones = (stonesList[-1]) * 14
+        initialPounds = poundsList[-1]
+        print(initialStones, initialPounds)
         totalInitial = initialStones + initialPounds
-        difference = round((totalInitial - totalPounds), 1)
-        difList.insert(0, difference)
+        difference = round((totalInitial - totalPounds), 2)
+        difList.append(difference)
     print(difList)
 
     result = zip(datesList, stonesList, poundsList, difList)
@@ -90,7 +93,7 @@ def success():
         date = request.form["date_entry"]
         stone = request.form["st_entry"]
         pounds = request.form["lb_entry"]
-        pounds = ((float(pounds))*10)
+        pounds = ((float(pounds))*100)
         # print(date)
         if db.session.query(Data).filter(Data.date_ == date).count() == 0:
             data = Data(date, stone, pounds)
