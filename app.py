@@ -9,10 +9,13 @@ from decimal import Decimal
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-## Testing DB
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
+
+## Test DB
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
+
 ## Prod DB
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
+
 db = SQLAlchemy(app)
 
 
@@ -28,11 +31,13 @@ class Data(db.Model):
         self.stone_ = stone_
         self.pounds_ = pounds_
 
-
+## INDEX ROUTE
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
+## RESULTS ROUTE
 @app.route("/results")
 def results():
     
@@ -42,11 +47,13 @@ def results():
     stonesList = []
     poundsListTen = []
 
+    # Fill all lists with each column
     for i in allRows:
         datesList.append(i.date_.strftime("%d/%m/%Y"))
         stonesList.append(i.stone_)
         poundsListTen.append(i.pounds_)
     
+    # Divide pounds by 100 as they are stored *100 because decimals can't be stored (need to fix this eventually)
     poundsList = []
     for i in poundsListTen:
         pounds = i/100
@@ -56,30 +63,35 @@ def results():
     # print(stonesList)
     # print(poundsList)
 
+    # Create a list of all the differences in pounds for each entry compared to the initial weight
     difList = []
-    stoneOne = []
-    poundOne = []
     for i, j in zip(stonesList, poundsList):
         stonePounds = i*14
         poundPounds = j
         totalPounds = stonePounds + poundPounds
         initialStones = (stonesList[-1]) * 14
         initialPounds = poundsList[-1]
-        print(initialStones, initialPounds)
         totalInitial = initialStones + initialPounds
-        difference = round((totalInitial - totalPounds), 2)
+        difference = round((totalPounds - totalInitial), 2)
         difList.append(difference)
-    print(difList)
+    # print(difList)
 
-    result = zip(datesList, stonesList, poundsList, difList)
+    # Link up the delete button to delete a row
+    idTag = []
+    for i in range(0, len(difList)):
+        idTag.append(i)
+    # print(idTag)
+
+    result = zip(datesList, stonesList, poundsList, difList, idTag)
     resultsList = list(result)
     # print(resultsList)
 
+        # A disgusting piece of code to build an HTML table of all the results. It turns each list into a column in HTML
     FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Lb Change</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
-        for date, value1, value2, value3 in rows:
-            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td><i class='fas fa-times'></i></td></tr>".format(date, value1, value2, value3))
+        for date, value1, value2, value3, idTag in rows:
+            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td><i class='fas fa-times' id='row{}'></i></td></tr>".format(date, value1, value2, value3, idTag))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
@@ -87,6 +99,7 @@ def results():
     return render_template("results.html", table=FULL_HTML)
 
 
+## SUCCESSFUL SUBMISSION ROUTE
 @app.route("/success", methods=["POST"])
 def success():
     if request.method == "POST":
@@ -107,3 +120,10 @@ if __name__ == "__main__":
     app.debug = True
     app.run()
 
+
+## TO DO
+# Clean code
+# Modularise code
+# Make "x" delete a row
+# Turn pounds into stones and pounds
+# Make a weekly change column
