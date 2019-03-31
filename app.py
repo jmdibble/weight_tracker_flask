@@ -37,7 +37,7 @@ def index():
     return render_template("index.html")
 
 ## DELETE ROW ROUTE
-@app.route("/delete")
+@app.route("/delete", methods=['POST'])
 def delete():
     
     # Delete query
@@ -91,11 +91,15 @@ def results():
         difList.append(difference)
     # print(difList)
 
-    # Link up the delete button to delete a row
+    # Link up the delete button to delete a row (Don't think this is needed now, but keeping until sure)
     idTag = []
     for i in range(0, len(difList)):
         idTag.append(i)
     # print(idTag)
+
+    # Change from last entry
+    changeList = []
+    # insert some code to calculate the difference between most recent, and previous entry
 
     result = zip(datesList, stonesList, poundsList, difList, idTag)
     resultsList = list(result)
