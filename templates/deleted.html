@@ -13,19 +13,14 @@
 </head>
 
 <body>
-	<h1>Your Results</h1>
-
-	<div class="table" id="table">{{table | safe}}</div>
-
-	<input type="button" class="button" value="Home" onclick="window.location.href='{{url_for('index')}}'"/>
-	<input type="button" class="button" value="Test" onclick="window.location.href='{{url_for('delete')}}'"/>
-	
-
-	<footer class="footer">
-		<p id="footer-text">&copy; 2019 Josh Dibble</p>
-	</footer>
-
+	<div class="container">
+		<p> Successful deletion! <br></p>
+	</div>
+    <input type="button" class="button" value="Home" onclick="window.location.href='{{url_for('index')}}'" />
+    <input type="button" class="button" value="Results" onclick="window.location.href='{{url_for('results')}}'" />
 </body>
+
+
 
 
 </html>

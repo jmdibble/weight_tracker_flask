@@ -83,6 +83,13 @@ input::placeholder {
 	font-family: 'Raleway', sans-serif;
 }
 
+.button-mini {
+	border: 0px;
+	font-size: 12px;
+	color: #ffffff;
+	background-color: transparent;
+}
+
 .message {
 	font-size: 16px;
 	padding-top: 20px;
@@ -105,7 +112,9 @@ input::placeholder {
 	padding: 8px;
   }
   
-  #table tr:hover {background-color: #fff;}
+  #table tr:hover {
+		background-color: rgba(148, 98, 206, 0.5);
+	}
   
   #table th {
 	padding-top: 12px;

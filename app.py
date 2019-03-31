@@ -36,6 +36,21 @@ class Data(db.Model):
 def index():
     return render_template("index.html")
 
+## DELETE ROW ROUTE
+@app.route("/delete")
+def delete():
+    
+    # Delete query
+    # (db.session.query(Data).filter(Data.date_.strftime("%d/%m/%Y") == '01/03/2019').delete())
+    dateCol = (db.session.query(Data).order_by(Data.date_.desc()).all())
+    specDate = (db.session.query(Data).filter(Data.date_ == '01/03/2019').delete())
+    db.session.commit()
+    print(specDate)
+    # for i in dateCol:
+    #     dateCol = i.date_.strftime("%d/%m/%Y")
+    # print(dateCol)
+
+    return render_template("deleted.html")
 
 ## RESULTS ROUTE
 @app.route("/results")
@@ -47,7 +62,7 @@ def results():
     stonesList = []
     poundsListTen = []
 
-    # Fill all lists with each column
+    # Fill each lists with corresponding column
     for i in allRows:
         datesList.append(i.date_.strftime("%d/%m/%Y"))
         stonesList.append(i.stone_)
@@ -86,12 +101,13 @@ def results():
     resultsList = list(result)
     # print(resultsList)
 
-        # A disgusting piece of code to build an HTML table of all the results. It turns each list into a column in HTML
+    # A disgusting piece of code to build an HTML table of all the results. It turns each list into a column in HTML. Needs cleaning
     FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Lb Change</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
         for date, value1, value2, value3, idTag in rows:
-            table.append("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td><i class='fas fa-times' id='row{}'></i></td></tr>".format(date, value1, value2, value3, idTag))
+            # table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='row%s' href='printMe(%s)'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, value3, idTag, date))
+            table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='%s'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, value3, date))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
