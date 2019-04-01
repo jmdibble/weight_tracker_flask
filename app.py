@@ -98,20 +98,28 @@ def results():
     # print(idTag)
 
     # Change from last entry
-    changeList = []
-    # insert some code to calculate the difference between most recent, and previous entry
+    lastList = []
+    for i, j in zip(stonesList, poundsList):
+        stonePounds1 = i*14
+        poundPounds1 = j
+        totalPounds1 = stonePounds1 + poundPounds1
+        initialStones1 = (stonesList[2]) * 14
+        initialPounds1 = poundsList[2]
+        totalInitial1 = initialStones1 + initialPounds1
+        difference1 = round((totalPounds1 - totalInitial1), 2)
+        lastList.append(difference1)
 
-    result = zip(datesList, stonesList, poundsList, difList, idTag)
+    result = zip(datesList, stonesList, poundsList, difList, idTag, lastList)
     resultsList = list(result)
     # print(resultsList)
 
     # A disgusting piece of code to build an HTML table of all the results. It turns each list into a column in HTML. Needs cleaning
-    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Lb Change</th></tr>"]
+    FULL_HTML = ["<tr><th>Date</th><th>Stone</th><th>Pounds</th><th>Last Change Lb</th><th>Total Change Lb</th></tr>"]
     for date, rows in groupby(resultsList, itemgetter(0)):
         table = []
-        for date, value1, value2, value3, idTag in rows:
+        for date, value1, value2, value3, idTag, lastList in rows:
             # table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='row%s' href='printMe(%s)'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, value3, idTag, date))
-            table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='%s'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, value3, date))
+            table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='%s'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, lastList, value3, date))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
