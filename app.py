@@ -98,16 +98,23 @@ def results():
     # print(idTag)
 
     # Change from last entry
-    lastList = []
-    for i, j in zip(stonesList, poundsList):
-        stonePounds1 = i*14
-        poundPounds1 = j
-        totalPounds1 = stonePounds1 + poundPounds1
-        initialStones1 = (stonesList[2]) * 14
-        initialPounds1 = poundsList[2]
-        totalInitial1 = initialStones1 + initialPounds1
-        difference1 = round((totalPounds1 - totalInitial1), 2)
-        lastList.append(difference1)
+    lastList = [0]
+    for i, j, k in zip(stonesList, poundsList, range(1, (len(stonesList)))):
+        print(stonesList)
+        print(poundsList)
+        print(i, j)
+        stonePoundsNow = i*14
+        poundPoundsNow = j
+        totalPoundsNow = stonePoundsNow + poundPoundsNow
+        print(totalPoundsNow)
+        stonePoundsLast = (stonesList[k]) * 14
+        poundPoundsLast = poundsList[k]
+        totalPoundsLast = stonePoundsLast + poundPoundsLast
+        print(totalPoundsLast)
+        diffLast = round((totalPoundsNow - totalPoundsLast), 2)       
+        lastList.append(diffLast)
+    lastList.reverse()
+        
 
     result = zip(datesList, stonesList, poundsList, difList, idTag, lastList)
     resultsList = list(result)
@@ -119,7 +126,8 @@ def results():
         table = []
         for date, value1, value2, value3, idTag, lastList in rows:
             # table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='row%s' href='printMe(%s)'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, value3, idTag, date))
-            table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='%s'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, lastList, value3, date))
+            # table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><a class='button-mini' id='%s'><i class='fas fa-times'></i></a></td></tr>" % (date, value1, value2, lastList, value3, date))
+            table.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (date, value1, value2, lastList, value3))
         table = "\n{}\n".format('\n'.join(table))
         FULL_HTML.append(table)
     FULL_HTML = "<table>\n{}\n</table>".format('\n'.join(FULL_HTML))
