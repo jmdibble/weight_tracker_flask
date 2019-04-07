@@ -99,23 +99,24 @@ def results():
 
     # Change from last entry
     lastList = [0]
+    print(stonesList)
+    print(poundsList)
     for i, j, k in zip(stonesList, poundsList, range(1, (len(stonesList)))):
-        print(stonesList)
-        print(poundsList)
-        print(i, j)
-        stonePoundsNow = i*14
-        poundPoundsNow = j
-        totalPoundsNow = stonePoundsNow + poundPoundsNow
-        print(totalPoundsNow)
-        stonePoundsLast = (stonesList[k]) * 14
-        poundPoundsLast = poundsList[k]
-        totalPoundsLast = stonePoundsLast + poundPoundsLast
-        print(totalPoundsLast)
-        diffLast = round((totalPoundsNow - totalPoundsLast), 2)       
-        lastList.append(diffLast)
-    lastList.reverse()
+        stonesA = (stonesList[-k]) * 14
+        poundsA = poundsList[-k]
+        totalA = stonesA + poundsA
+        print(totalA)
         
+        stonesB = (stonesList[-k-1]) * 14
+        poundsB = poundsList[-k-1]
+        totalB = stonesB + poundsB
+        print(totalB)
 
+        diffAB = stonesB - stonesA
+        print(diffAB)
+        lastList.append(diffAB)      
+
+    # print(lastList)
     result = zip(datesList, stonesList, poundsList, difList, idTag, lastList)
     resultsList = list(result)
     # print(resultsList)
