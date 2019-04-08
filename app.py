@@ -101,22 +101,24 @@ def results():
     lastList = [0]
     print(stonesList)
     print(poundsList)
-    for i, j, k in zip(stonesList, poundsList, range(1, (len(stonesList)))):
-        stonesA = (stonesList[-k]) * 14
-        poundsA = poundsList[-k]
-        totalA = stonesA + poundsA
+    for i, j, k in zip(stonesList, poundsList, range(0, (len(stonesList)-1))):
+
+        stonesA = (stonesList[k]) * 14
+        poundsA = poundsList[k]
+        totalA = (stonesA + poundsA)
         print(totalA)
         
-        stonesB = (stonesList[-k-1]) * 14
-        poundsB = poundsList[-k-1]
-        totalB = stonesB + poundsB
+        stonesB = (stonesList[k+1]) * 14
+        poundsB = poundsList[k+1]
+        totalB = (stonesB + poundsB)
         print(totalB)
 
-        diffAB = stonesB - stonesA
+        diffAB = round((totalA - totalB), 2)
         print(diffAB)
-        lastList.append(diffAB)      
+        lastList.insert(1, (diffAB))
 
-    # print(lastList)
+    lastList.reverse()          
+
     result = zip(datesList, stonesList, poundsList, difList, idTag, lastList)
     resultsList = list(result)
     # print(resultsList)
@@ -163,4 +165,3 @@ if __name__ == "__main__":
 # Modularise code
 # Make "x" delete a row
 # Turn pounds into stones and pounds
-# Make a weekly change column
