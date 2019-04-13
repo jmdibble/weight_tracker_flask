@@ -1,24 +1,22 @@
 html, body {
 	height: 100%;
 	background-repeat: no-repeat;
-	background-attachment: fixed;
 	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #929ae7, #889aed, #7c9af3, #7d8ef9, #857ffc, #936efc, #a458f8);
 	font-family: 'Raleway', sans-serif;
 	margin: auto;
 	text-align: center;
-	overflow: scroll;
+	overflow: auto;
 	color: #fff;
 }
 
-
 h1 {
 	font-size: 30px;
-	color: #ffffff;
+	color: #fff;
 	margin-top: 50px;
 }
 
 h3 {
-	font-size: 20px;
+	font-size: 18px;
 	color: #cee0dc;
 }
 
@@ -59,9 +57,11 @@ input[type=date]::-webkit-inner-spin-button {
 
 input::placeholder {
 	color: #fff;
-  }
+}
 
 .container button {
+	-webkit-appearance:none;
+	opacity: 1;
 	margin: 20px 5px 0px 5px;
 	border-radius: 100px;
 	border: 0px;
@@ -73,6 +73,8 @@ input::placeholder {
 }
 
 .button {
+	-webkit-appearance:none;
+	opacity: 1;
 	margin: 20px 5px 0px 5px;
 	border-radius: 100px;
 	border: 0px;
@@ -84,6 +86,8 @@ input::placeholder {
 }
 
 .button-mini {
+	-webkit-appearance:none;
+	opacity: 1;
 	border: 0px;
 	font-size: 12px;
 	color: #ffffff;
@@ -126,10 +130,9 @@ input::placeholder {
 	color: #fff;
   }
 
-
   .footer {
-	color: #ffffff !important;
-	position: absolute; left: 0; right: 0; top: 800px; bottom:0;
+	color: #ffffff;
+	padding-top: 50px;
   }
 
 

@@ -11,10 +11,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 ## Test DB
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres123@localhost/weight_tracker"
 
 ## Prod DB
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://fpqzadtuibuwiu:877b5633cba5743b4152d40dac4ea9a61c1f1acd90db4abca3a9d43b5138dee2@ec2-54-204-13-34.compute-1.amazonaws.com:5432/der5hc3bs38utn?sslmode=require"
 
 db = SQLAlchemy(app)
 
@@ -165,3 +165,11 @@ if __name__ == "__main__":
 # Modularise code
 # Make "x" delete a row
 # Turn pounds into stones and pounds
+
+# Remove test button
+# Fix table buttons - weird scroll
+# Buttons on iOS
+# Make logins
+
+## BUGS
+# 
